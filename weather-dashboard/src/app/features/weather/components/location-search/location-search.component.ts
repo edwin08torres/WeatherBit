@@ -14,20 +14,26 @@ export class LocationSearchComponent {
     @Input() loading = false;
 
     zip = '';
+    emptyError = false;
 
-    onZipInput(event: Event): void {
-        const input = event.target as HTMLInputElement;
-        const cleaned = input.value.replace(/\D/g, '').slice(0, 5);
-
+    onZipChange(raw: string): void {
+        const cleaned = raw.replace(/\D/g, '').slice(0, 5);
         this.zip = cleaned;
-        input.value = cleaned;
+
+        if (this.zip.length > 0 && this.emptyError) {
+            this.emptyError = false;
+        }
     }
 
     onSubmit(): void {
         const value = this.zip.trim();
 
-        if (value.length !== 5) return;
+        if (!value) {
+            this.emptyError = true;
+            return;
+        }
 
+        this.emptyError = false;
         this.search.emit(value);
 
         this.zip = '';

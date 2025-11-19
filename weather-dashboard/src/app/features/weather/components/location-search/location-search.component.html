@@ -1,20 +1,28 @@
 <form (ngSubmit)="onSubmit()" novalidate>
   <div class="mb-2">
     <label for="zip" class="form-label">Código postal de EE.UU.</label>
+
     <input
       id="zip"
       name="zip"
       type="text"
       class="form-control"
-      [(ngModel)]="zip"
+      [ngModel]="zip"
+      (ngModelChange)="onZipChange($event)"
       required
       pattern="^[0-9]{5}$"
       maxlength="5"
       inputmode="numeric"
       aria-describedby="zipHelp"
-      (input)="onZipInput($event)"
+      placeholder="Ej: 33155, 33144, 35004"
+      [ngClass]="{ 'is-invalid': emptyError }"
     />
+
     <div id="zipHelp" class="form-text">Ingresa un código postal de 5 dígitos.</div>
+
+    <div *ngIf="emptyError" class="invalid-feedback d-block">
+      Debes ingresar un código postal antes de buscar.
+    </div>
   </div>
 
   <div class="d-flex">
