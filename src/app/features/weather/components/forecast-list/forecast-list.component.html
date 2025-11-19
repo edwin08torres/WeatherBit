@@ -12,7 +12,7 @@
           <img
             *ngIf="getIconUrl(day.weather?.icon) as iconUrl"
             [src]="iconUrl"
-            [alt]="day.weather?.description || ''"
+            [alt]="day.weather.description || ''"
             loading="lazy"
           />
         </div>
@@ -22,7 +22,7 @@
             {{ day.valid_date | date : 'EEEE d' }}
           </div>
           <div class="text-muted small">
-            {{ day.weather?.description }}
+            {{ day.weather.description }}
           </div>
         </div>
       </div>

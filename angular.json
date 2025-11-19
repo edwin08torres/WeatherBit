@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "weather-dashboard": {
+    "test": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "weather-dashboard:build:production"
+              "buildTarget": "test:build:production"
             },
             "development": {
-              "buildTarget": "weather-dashboard:build:development"
+              "buildTarget": "test:build:development"
             }
           },
           "defaultConfiguration": "development"
