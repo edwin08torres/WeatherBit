@@ -1,0 +1,127 @@
+:host {
+  display: block;
+}
+
+.current-card {
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(59, 130, 246, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(147, 51, 234, 0.15),
+      transparent 55%
+    ),
+    var(--app-surface);
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.3),
+    0 0 0 1px rgba(15, 23, 42, 0.1);
+}
+
+[data-bs-theme='light'] .current-card {
+  border-color: rgba(148, 163, 184, 0.35);
+  box-shadow:
+    0 20px 40px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(148, 163, 184, 0.25);
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(59, 130, 246, 0.14),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(147, 51, 234, 0.09),
+      transparent 55%
+    ),
+    var(--app-surface);
+}
+.current-card__subtitle {
+  opacity: 0.9;
+}
+
+.current-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+[data-bs-theme='light'] .current-card .current-label,
+[data-bs-theme='light'] .current-card .current-card__subtitle {
+  opacity: 0.9;
+}
+
+.current-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.current-card__icon {
+  flex: 0 0 auto;
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-card__icon i {
+  font-size: 2.75rem;
+  color: #3b82f6;
+}
+
+.current-card--loading {
+  min-height: 140px;
+}
+
+.placeholder-lines {
+  width: 100%;
+}
+
+.placeholder-line {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.35),
+    rgba(148, 163, 184, 0.1),
+    rgba(148, 163, 184, 0.35)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  margin-bottom: 8px;
+}
+
+.skeleton-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.35),
+    rgba(148, 163, 184, 0.1),
+    rgba(148, 163, 184, 0.35)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.current-link {
+  font-weight: 500;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

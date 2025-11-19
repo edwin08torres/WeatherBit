@@ -1,0 +1,23 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+:root {
+  --app-surface: #ffffff;
+  --app-surface-subtle: #f5f6fb;
+}
+
+[data-bs-theme='dark'] {
+  --app-surface: #111827;
+  --app-surface-subtle: #020617;
+  --bs-body-bg: #020617;
+  --bs-body-color: #f8f9fa;
+}
+
+body {
+  background-color: var(--app-surface-subtle);
+}
+
+.card,
+.list-group-item,
+.alert {
+  background-color: var(--app-surface);
+}

@@ -1,0 +1,32 @@
+<nav class="tabs-container" role="tablist" aria-label="Ubicaciones seleccionadas">
+  <button
+    *ngFor="let item of items"
+    type="button"
+    class="tab-item"
+    [class.active]="getId(item) === activeId"
+    role="tab"
+    [attr.aria-selected]="getId(item) === activeId"
+    (click)="onSelect(item)"
+  >
+    <span class="tab-label">
+      {{ getLabel(item) }}
+    </span>
+
+    <button
+      type="button"
+      class="tab-close"
+      aria-label="Cerrar pestaña"
+      (click)="onClose(item, $event)"
+    >
+      ×
+    </button>
+  </button>
+</nav>
+
+<section class="tab-panel" *ngIf="activeItem as item" role="tabpanel">
+  <ng-container
+    *ngIf="contentTemplate"
+    [ngTemplateOutlet]="contentTemplate"
+    [ngTemplateOutletContext]="{ $implicit: item }"
+  ></ng-container>
+</section>
