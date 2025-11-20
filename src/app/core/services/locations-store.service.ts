@@ -42,6 +42,7 @@ export class LocationsStoreService {
         const remaining = this.locationsSubject.value.filter(l => l.id !== id);
         this.locationsSubject.next(remaining);
 
+        // si borramos la activa, activamos la primera disponible
         if (this.activeLocationIdSubject.value === id) {
             this.activeLocationIdSubject.next(remaining[0]?.id ?? null);
         }

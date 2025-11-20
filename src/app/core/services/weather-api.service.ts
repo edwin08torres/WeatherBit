@@ -34,6 +34,7 @@ export class WeatherApiService {
             .pipe(tap(data => this.cache.set(cacheKey, data)));
     }
 
+    // forecast 5 días con cache
     getFiveDayForecast(zipCode: string): Observable<WeatherForecastResponse> {
         const cacheKey = `forecast:${zipCode}`;
         const cached = this.cache.get<WeatherForecastResponse>(cacheKey);

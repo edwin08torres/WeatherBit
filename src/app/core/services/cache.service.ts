@@ -3,12 +3,12 @@ import { SettingsService } from './settings.service';
 
 interface CacheEntry<T> {
     value: T;
-    expiresAt: number;
+    expiresAt: number; // timestamp de expiración
 }
 
 @Injectable({ providedIn: 'root' })
 export class CacheService {
-    private readonly prefix = 'weather-cache:';
+    private readonly prefix = 'weather-cache:'; // aislamos claves de este proyecto
 
     constructor(private readonly settings: SettingsService) { }
 
@@ -24,6 +24,7 @@ export class CacheService {
             }
             return entry.value;
         } catch {
+            // si el formato está mal, borramos la entrada
             localStorage.removeItem(this.prefix + key);
             return null;
         }
@@ -44,6 +45,7 @@ export class CacheService {
     }
 
     clear(): void {
+        // solo borramos las claves propias del caché
         const keys = Object.keys(localStorage);
         for (const key of keys) {
             if (key.startsWith(this.prefix)) {

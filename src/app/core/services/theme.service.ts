@@ -14,6 +14,7 @@ export class ThemeService {
         if (stored === 'light' || stored === 'dark') {
             this.current = stored;
         } else {
+            // respetamos theme del sistema
             const prefersDark =
                 window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
             this.current = prefersDark ? 'dark' : 'light';
