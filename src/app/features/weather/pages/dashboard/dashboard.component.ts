@@ -99,6 +99,14 @@ export class DashboardComponent implements OnDestroy {
         this.router.navigate(['/forecast', zip]);
     }
 
+    closeErrorToast(): void {
+        if (this.errorTimeoutId) {
+            clearTimeout(this.errorTimeoutId);
+            this.errorTimeoutId = null;
+        }
+        this.errorMessage = null;
+    }
+
     ngOnDestroy(): void {
         if (this.errorTimeoutId) {
             clearTimeout(this.errorTimeoutId);

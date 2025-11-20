@@ -14,14 +14,15 @@ export class LocationSearchComponent {
     @Input() loading = false;
 
     zip = '';
-    emptyError = false;
 
-    onZipChange(raw: string): void {
-        const cleaned = raw.replace(/\D/g, '').slice(0, 5);
-        this.zip = cleaned;
+    toastVisible = false;
+    toastMessage = '';
 
-        if (this.zip.length > 0 && this.emptyError) {
-            this.emptyError = false;
+    onZipInput(): void {
+        this.zip = this.zip.replace(/\D/g, '').slice(0, 5);
+
+        if (this.toastVisible && this.zip.length > 0) {
+            this.toastVisible = false;
         }
     }
 
@@ -29,13 +30,26 @@ export class LocationSearchComponent {
         const value = this.zip.trim();
 
         if (!value) {
-            this.emptyError = true;
+            this.showToast('Debes ingresar un código postal antes de buscar.');
             return;
         }
 
-        this.emptyError = false;
+        if (value.length < 5) {
+            this.showToast('El código postal debe tener 5 dígitos.');
+            return;
+        }
+
         this.search.emit(value);
 
         this.zip = '';
+    }
+
+    private showToast(message: string): void {
+        this.toastMessage = message;
+        this.toastVisible = true;
+
+        setTimeout(() => {
+            this.toastVisible = false;
+        }, 4000);
     }
 }

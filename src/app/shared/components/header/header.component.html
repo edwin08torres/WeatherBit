@@ -2,19 +2,32 @@
   <div class="container">
     <a class="navbar-brand fw-semibold" routerLink="/">Weather dashboard</a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      (click)="navOpen = !navOpen"
-      [attr.aria-expanded]="navOpen"
-      aria-label="Alternar navegación"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="d-flex align-items-center ms-auto gap-2">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2 d-lg-none"
+        (click)="toggleTheme()"
+        [attr.aria-pressed]="currentTheme === 'dark'"
+      >
+        <span aria-hidden="true">
+          {{ currentTheme === 'dark' ? '🌙' : '☀️' }}
+        </span>
+      </button>
+
+      <button
+        class="navbar-toggler d-lg-none"
+        type="button"
+        (click)="navOpen = !navOpen"
+        [attr.aria-expanded]="navOpen"
+        aria-label="Alternar navegación"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
 
     <div class="collapse navbar-collapse justify-content-end" [class.show]="navOpen">
       <ul class="navbar-nav align-items-lg-center mb-2 mb-lg-0 gap-lg-3">
-        <li class="nav-item">
+        <li class="nav-item d-none d-lg-block">
           <button
             type="button"
             class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2"
@@ -40,13 +53,14 @@
           >
             Opciones
           </button>
+
           <ul
             class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end my-2"
             [class.show]="settingsOpen"
             aria-labelledby="settingsDropdown"
           >
             <li class="px-3">
-              <label class="form-label small mb-1" for="ttlSelect"> Duración de caché </label>
+              <label class="form-label small mb-1" for="ttlSelect">Duración de caché</label>
               <select
                 id="ttlSelect"
                 class="form-select form-select-sm"
@@ -62,7 +76,9 @@
                 Controla cuánto tiempo se reutilizan los datos de la API guardados en el navegador.
               </p>
             </li>
+
             <li><hr class="dropdown-divider" /></li>
+
             <li>
               <button type="button" class="dropdown-item" (click)="clearCache()">
                 Vaciar caché meteorológica

@@ -7,22 +7,17 @@
       name="zip"
       type="text"
       class="form-control"
-      [ngModel]="zip"
-      (ngModelChange)="onZipChange($event)"
+      [(ngModel)]="zip"
       required
       pattern="^[0-9]{5}$"
       maxlength="5"
       inputmode="numeric"
       aria-describedby="zipHelp"
       placeholder="Ej: 33155, 33144, 35004"
-      [ngClass]="{ 'is-invalid': emptyError }"
+      (input)="onZipInput()"
     />
 
     <div id="zipHelp" class="form-text">Ingresa un código postal de 5 dígitos.</div>
-
-    <div *ngIf="emptyError" class="invalid-feedback d-block">
-      Debes ingresar un código postal antes de buscar.
-    </div>
   </div>
 
   <div class="d-flex">
@@ -31,3 +26,23 @@
     </button>
   </div>
 </form>
+
+<div
+  *ngIf="toastVisible"
+  class="toast-container position-fixed top-0 end-0 p-3"
+  style="z-index: 1080"
+>
+  <div class="toast show text-bg-danger border-0 shadow-sm">
+    <div class="d-flex align-items-center">
+      <div class="toast-body">
+        {{ toastMessage }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        aria-label="Cerrar"
+        (click)="toastVisible = false"
+      ></button>
+    </div>
+  </div>
+</div>
