@@ -68,6 +68,7 @@ export class DashboardComponent implements OnDestroy {
                     this.errorMessage =
                         'No se pudo encontrar esa ubicación. Verifica el código postal o inténtalo de nuevo.';
 
+                    // cerramos el error despues de 4seg
                     this.errorTimeoutId = setTimeout(() => {
                         this.errorMessage = null;
                         this.errorTimeoutId = null;
@@ -75,7 +76,7 @@ export class DashboardComponent implements OnDestroy {
                 }
             });
     }
-
+    // mapea el modelo de la respuesta api
     private mapToLocation(zip: string, response: WeatherCurrentResponse): Location {
         const obs = response.data[0];
         return {
@@ -99,6 +100,7 @@ export class DashboardComponent implements OnDestroy {
         this.router.navigate(['/forecast', zip]);
     }
 
+    // Cierre manual
     closeErrorToast(): void {
         if (this.errorTimeoutId) {
             clearTimeout(this.errorTimeoutId);
@@ -108,6 +110,7 @@ export class DashboardComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
+        // borramos cualquier timeout
         if (this.errorTimeoutId) {
             clearTimeout(this.errorTimeoutId);
         }

@@ -30,6 +30,7 @@ export class TabsComponent<T extends { id: string }> {
         return (item as any).id;
     }
 
+    // label que se muestra arriba del dash
     getLabel(item: any): string {
         const city = item.cityName ?? item.name ?? item.id;
         const zip = item.zipCode ?? item.id;
