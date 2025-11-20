@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { CacheService } from '../../../core/services/cache.service';
     standalone: true,
     imports: [CommonModule, RouterModule, FormsModule],
     templateUrl: './header.component.html',
-    styleUrl: './header.component.scss',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
     currentTheme: Theme;
@@ -21,7 +21,6 @@ export class HeaderComponent {
     settingsOpen = false;
 
     constructor(
-        private readonly elRef: ElementRef,
         private readonly themeService: ThemeService,
         private readonly settingsService: SettingsService,
         private readonly cacheService: CacheService
@@ -35,12 +34,18 @@ export class HeaderComponent {
         this.currentTheme = this.themeService.theme;
     }
 
-    toggleSettings(): void {
+    toggleSettings(event?: MouseEvent): void {
+        if (event) event.stopPropagation();
         this.settingsOpen = !this.settingsOpen;
     }
 
-    toggleNav(): void {
+    openMobileMenu(event: MouseEvent): void {
+        event.stopPropagation();
         this.navOpen = !this.navOpen;
+    }
+
+    closeMobileMenu(): void {
+        this.navOpen = false;
     }
 
     onTtlChange(value: number): void {
@@ -52,16 +57,8 @@ export class HeaderComponent {
     }
 
     @HostListener('document:click', ['$event'])
-    onDocumentClick(event: MouseEvent): void {
-        if (!this.settingsOpen && !this.navOpen) {
-            return;
-        }
-
-        const target = event.target as HTMLElement;
-
-        if (!this.elRef.nativeElement.contains(target)) {
-            this.settingsOpen = false;
-            this.navOpen = false;
-        }
+    onDocumentClick(_: MouseEvent): void {
+        this.settingsOpen = false;
+        this.navOpen = false;
     }
 }

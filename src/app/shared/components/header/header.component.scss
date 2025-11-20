@@ -1,3 +1,11 @@
+:host {
+  display: block;
+}
+
+.navbar {
+  backdrop-filter: blur(12px);
+}
+
 .navbar-brand {
   font-weight: 600;
 }
@@ -5,4 +13,89 @@
 .navbar {
   backdrop-filter: blur(8px);
   z-index: 100;
+}
+
+@media ( width >= 1000px) {
+  .space-opciones {
+    margin-right: 8rem !important;
+  }
+}
+
+.header-theme-btn {
+  min-width: 2.5rem;
+  justify-content: center;
+}
+
+.header-theme-btn span:first-child {
+  font-size: 1.2rem;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-hamburger {
+  width: 18px;
+  height: 14px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header-hamburger span {
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  background-color: currentColor;
+}
+
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  z-index: 1040;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1041;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 0.75rem;
+}
+
+.mobile-menu-card {
+  width: min(260px, 100%);
+  margin-top: 3.2rem;
+  background-color: var(--app-surface);
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+  padding: 0.5rem 0.75rem;
+}
+
+[data-bs-theme='dark'] .mobile-menu-card {
+  background-color: #020617;
+}
+
+.mobile-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-menu-item {
+  padding: 0.35rem 0;
+}
+
+.mobile-menu-divider {
+  height: 1px;
+  margin: 0.2rem 0;
+  background-color: rgba(148, 163, 184, 0.4);
 }

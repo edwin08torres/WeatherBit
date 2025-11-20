@@ -1,61 +1,35 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom" aria-label="Barra principal">
-  <div class="container">
+<nav class="navbar bg-body-tertiary border-bottom" aria-label="Barra principal">
+  <div class="container d-flex align-items-center justify-content-between space-opciones">
     <a class="navbar-brand fw-semibold" routerLink="/">Weather dashboard</a>
 
-    <div class="d-flex align-items-center ms-auto gap-2">
+    <div class="d-flex align-items-center gap-2">
       <button
         type="button"
-        class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2 d-lg-none"
+        class="btn btn-outline-secondary btn-sm header-theme-btn d-flex align-items-center gap-2"
         (click)="toggleTheme()"
         [attr.aria-pressed]="currentTheme === 'dark'"
       >
         <span aria-hidden="true">
           {{ currentTheme === 'dark' ? '🌙' : '☀️' }}
         </span>
+        <span class="d-none d-sm-inline">
+          {{ currentTheme === 'dark' ? 'Modo oscuro' : 'Modo claro' }}
+        </span>
       </button>
 
-      <button
-        class="navbar-toggler d-lg-none"
-        type="button"
-        (click)="navOpen = !navOpen"
-        [attr.aria-expanded]="navOpen"
-        aria-label="Alternar navegación"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-
-    <div class="collapse navbar-collapse justify-content-end" [class.show]="navOpen">
-      <ul class="navbar-nav align-items-lg-center mb-2 mb-lg-0 gap-lg-3">
-        <li class="nav-item d-none d-lg-block">
-          <button
-            type="button"
-            class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2"
-            (click)="toggleTheme()"
-            [attr.aria-pressed]="currentTheme === 'dark'"
-          >
-            <span aria-hidden="true">
-              {{ currentTheme === 'dark' ? '🌙' : '☀️' }}
-            </span>
-            <span class="d-none d-sm-inline">
-              {{ currentTheme === 'dark' ? 'Modo oscuro' : 'Modo claro' }}
-            </span>
-          </button>
-        </li>
-
-        <li class="nav-item dropdown" [class.show]="settingsOpen">
+      <div class="d-none d-lg-block">
+        <div class="dropdown" [class.show]="settingsOpen">
           <button
             type="button"
             class="btn btn-link nav-link dropdown-toggle px-2"
-            (click)="toggleSettings()"
+            (click)="toggleSettings($event)"
             [attr.aria-expanded]="settingsOpen"
             id="settingsDropdown"
           >
             Opciones
           </button>
-
           <ul
-            class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end my-2"
+            class="dropdown-menu dropdown-menu-end my-3"
             [class.show]="settingsOpen"
             aria-labelledby="settingsDropdown"
           >
@@ -76,17 +50,69 @@
                 Controla cuánto tiempo se reutilizan los datos de la API guardados en el navegador.
               </p>
             </li>
-
             <li><hr class="dropdown-divider" /></li>
-
             <li>
               <button type="button" class="dropdown-item" (click)="clearCache()">
                 Vaciar caché meteorológica
               </button>
             </li>
           </ul>
-        </li>
-      </ul>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-icon d-lg-none"
+        (click)="openMobileMenu($event)"
+        [attr.aria-expanded]="navOpen"
+        aria-label="Abrir menú"
+      >
+        <span class="header-hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
     </div>
   </div>
 </nav>
+
+<div class="mobile-menu-backdrop d-lg-none" *ngIf="navOpen"></div>
+
+<div class="mobile-menu d-lg-none" *ngIf="navOpen" (click)="closeMobileMenu()">
+  <div class="mobile-menu-card" (click)="$event.stopPropagation()">
+    <ul class="mobile-menu-list mb-2">
+      <li class="mobile-menu-item">
+        <div class="w-100">
+          <label class="form-label small mb-1" for="ttlSelectMobile">Duración de caché</label>
+          <select
+            id="ttlSelectMobile"
+            class="form-select form-select-sm"
+            [(ngModel)]="ttl"
+            (ngModelChange)="onTtlChange($event)"
+          >
+            <option [ngValue]="30">30 minutos</option>
+            <option [ngValue]="60">1 hora</option>
+            <option [ngValue]="120">2 horas (por defecto)</option>
+            <option [ngValue]="240">4 horas</option>
+          </select>
+          <p class="text-muted small mt-1 mb-0">
+            Controla cuánto tiempo se reutilizan los datos de la API guardados en el navegador.
+          </p>
+        </div>
+      </li>
+
+      <li class="mobile-menu-divider"></li>
+
+      <li class="mobile-menu-item">
+        <button
+          type="button"
+          class="btn btn-primary w-100 text-center px-0"
+          (click)="clearCache(); closeMobileMenu()"
+        >
+          Vaciar caché meteorológica
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
