@@ -58,7 +58,6 @@ export class HeaderComponent {
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(_: MouseEvent): void {
-        this.settingsOpen = false;
         this.navOpen = false;
     }
 }
